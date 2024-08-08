@@ -10,7 +10,7 @@ export default class TaskRouter extends ApplicationRouter {
 
     router.use(accessAuthMiddleware);
 
-    router.post('/', ctrl.createComment);
+    router.post('/:taskId', ctrl.createComment);
     router.get('/:taskId', ctrl.getComments);
     router.patch('/:commentId', ctrl.updateComment);
     router.delete('/:commentId', ctrl.deleteComment);

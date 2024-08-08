@@ -17,6 +17,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   testId?: string;
   textAlign?: 'left' | 'center' | 'right';
   type?: string;
+  borderDisabled?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -28,6 +29,7 @@ const Input: React.FC<InputProps> = ({
   startEnhancer,
   testId,
   textAlign = 'left',
+  borderDisabled = false,
   type,
   ...props
 }) => (
@@ -36,6 +38,7 @@ const Input: React.FC<InputProps> = ({
       styles.inputContainer,
       error ? styles.border.errorState : styles.border.normalState,
       disabled ? styles.disabled : '',
+      borderDisabled ? styles.border.noBorder: styles.border.normalState, 
     ])}
   >
     <HorizontalStackLayout gap={2}>

@@ -3,7 +3,7 @@ import toast from 'react-hot-toast';
 
 import { Button, HeadingLarge, HorizontalStackLayout } from '../../components';
 import { AsyncError } from '../../types';
-import { ButtonKind, ButtonSize } from '../../types/button';
+import { ButtonSize } from '../../types/button';
 
 import TaskModal from './task-modal';
 import useTaskForm from './tasks-form.hook';
@@ -40,27 +40,29 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
           <HeadingLarge>Tasks</HeadingLarge>
         </div>
         <HorizontalStackLayout gap={1}>
-          <Button
-            onClick={() => setIsShareTasksModalOpen(!isShareTasksModalOpen)}
-            size={ButtonSize.COMPACT}
-            kind={ButtonKind.PRIMARY}
-            disabled={selectedTasks.length === 0}
-            startEnhancer={
-              <img src="assets/svg/share-icon.svg" alt="Share Icon" />
-            }
-          >
-            Share task(s)
-          </Button>
-
-          <Button
-            onClick={() => setIsModalOpen(!isModalOpen)}
-            size={ButtonSize.COMPACT}
-            startEnhancer={
-              <img src="assets/svg/plus-icon.svg" alt="Plus Icon" />
-            }
-          >
-            Add task
-          </Button>
+          <div>
+            <Button
+              onClick={() => setIsShareTasksModalOpen(!isShareTasksModalOpen)}
+              size={ButtonSize.COMPACT}
+              disabled={selectedTasks.length === 0}
+              startEnhancer={
+                <img src="assets/svg/share-icon.svg" alt="Share Icon" />
+              }
+            >
+              Share task(s)
+            </Button>
+          </div>
+          <div>
+            <Button
+              onClick={() => setIsModalOpen(!isModalOpen)}
+              size={ButtonSize.COMPACT}
+              startEnhancer={
+                <img src="assets/svg/plus-icon.svg" alt="Plus Icon" />
+              }
+            >
+              Add task
+            </Button>
+          </div>
         </HorizontalStackLayout>
         <TaskModal
           formik={addTaskFormik}

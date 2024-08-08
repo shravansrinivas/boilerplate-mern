@@ -9,20 +9,27 @@ interface AccountItemProps {
   selected: boolean;
 }
 
-const AccountItem: React.FC<AccountItemProps> = ({ account, handleToggle, selected }) => {
+const AccountItem: React.FC<AccountItemProps> = ({
+  account,
+  handleToggle,
+  selected,
+}) => {
   return (
-    <HorizontalStackLayout gap={7}>
+    <HorizontalStackLayout gap={5}>
       <div>
         <Input
           error=""
           type="checkbox"
+          borderDisabled={true}
           checked={selected}
           onChange={() => handleToggle(account.id)}
         />
       </div>
-      <ParagraphSmall>
-        {account.displayName()} ({account.username})
-      </ParagraphSmall>
+      <div>
+        <ParagraphSmall>
+          {account.displayName()} ({account.username})
+        </ParagraphSmall>
+      </div>
     </HorizontalStackLayout>
   );
 };

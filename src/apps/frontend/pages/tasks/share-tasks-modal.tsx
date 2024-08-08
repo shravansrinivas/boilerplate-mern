@@ -106,6 +106,7 @@ const ShareTasksModal: React.FC<ShareTasksModalProps> = ({
           ) : activeAccountsToDisplay.length > 0 ? (
             activeAccountsToDisplay.map((accountDetails) => (
               <AccountItem
+                key={accountDetails.id}
                 account={accountDetails}
                 handleToggle={handleToggle}
                 selected={selectedUsers.includes(accountDetails.id)}

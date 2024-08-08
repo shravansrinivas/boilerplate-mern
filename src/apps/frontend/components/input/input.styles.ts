@@ -20,6 +20,7 @@ const styles = {
   border: {
     errorState: 'border-red-500',
     normalState: 'border-stroke',
+    noBorder: 'border-none',
   },
   textAlign: {
     center: 'text-center',

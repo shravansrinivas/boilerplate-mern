@@ -20,6 +20,8 @@ import { Task } from '../../types/task';
 import TaskModal from './task-modal';
 import useTaskForm from './tasks-form.hook';
 import { getAccessTokenFromStorage } from '../../utils/storage-util';
+import CommentSection from './comments';
+import { CommentProvider } from '../../contexts';
 
 interface TaskSectionProps {
   handleDeleteTask: (taskId: string) => void;
@@ -86,6 +88,7 @@ const TaskSection: React.FC<TaskSectionProps> = ({
               <div>
                 <Input
                   type="checkbox"
+                  borderDisabled={true}
                   error=""
                   checked={selectedTasks.includes(task.id)}
                   onChange={() => handleTaskCheckBoxToggle(task.id)}
@@ -104,6 +107,9 @@ const TaskSection: React.FC<TaskSectionProps> = ({
                     </div>
                   </HorizontalStackLayout>
                   <ParagraphSmall>{task.description}</ParagraphSmall>
+                  <CommentProvider>
+                    <CommentSection taskId={task.id} />
+                  </CommentProvider>
                 </VerticalStackLayout>
               </div>
             </HorizontalStackLayout>
@@ -123,7 +129,7 @@ const TaskSection: React.FC<TaskSectionProps> = ({
                 <Button
                   onClick={() => handleDeleteTask(task.id)}
                   kind={ButtonKind.SECONDARY}
-                  size={ButtonSize.DEFAULT}
+                  size={ButtonSize.COMPACT}
                   startEnhancer={
                     <img src="assets/svg/delete-icon.svg" alt="Delete task" />
                   }
