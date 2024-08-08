@@ -12,6 +12,6 @@ export default class TaskReader {
       task: params.taskId,
       active: true,
     });
-    return taskDb.map(TaskCommentUtil.convertTaskCommentDBToTask);
+    return taskDb.map(TaskCommentUtil.convertTaskCommentDBToTaskComment);
   }
 }

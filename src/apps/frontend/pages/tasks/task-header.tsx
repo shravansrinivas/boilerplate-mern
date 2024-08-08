@@ -39,7 +39,7 @@ const TaskHeader: React.FC<TaskHeaderProps> = ({
         <div className="pl-2">
           <HeadingLarge>Tasks</HeadingLarge>
         </div>
-        <HorizontalStackLayout gap={3}>
+        <HorizontalStackLayout gap={1}>
           <Button
             onClick={() => setIsShareTasksModalOpen(!isShareTasksModalOpen)}
             size={ButtonSize.COMPACT}

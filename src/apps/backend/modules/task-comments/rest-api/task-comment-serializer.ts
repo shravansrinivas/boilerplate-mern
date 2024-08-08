@@ -1,9 +1,10 @@
-import { Task } from '../types';
+import { TaskComment } from '../types';
 
-export const serializeTaskAsJSON = (task: Task): unknown => ({
-  id: task.id,
-  account: task.account,
-  description: task.description,
-  title: task.title,
-  sharedWith: task.sharedWith,
+export const serializeCommentAsJSON = (comment: TaskComment): unknown => ({
+    id:    comment.id,
+  createdBy:  comment.createdBy,
+  updatedBy:  comment.updatedBy,
+  active:  comment.active,
+  message:  comment.message,
+  task:  comment.task,
 });

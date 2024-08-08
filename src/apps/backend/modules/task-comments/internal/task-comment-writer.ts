@@ -19,7 +19,7 @@ export default class TaskCommentWriter {
       task: params.task,
       message: params.message,
     });
-    return TaskCommentUtil.convertTaskCommentDBToTask(createdComment);
+    return TaskCommentUtil.convertTaskCommentDBToTaskComment(createdComment);
   }
 
   public static async updateComment(
@@ -43,7 +43,7 @@ export default class TaskCommentWriter {
       throw new TaskCommentNotFoundError(params.commentId);
     }
 
-    return TaskCommentUtil.convertTaskCommentDBToTask(comment);
+    return TaskCommentUtil.convertTaskCommentDBToTaskComment(comment);
   }
 
   public static async deleteComment(

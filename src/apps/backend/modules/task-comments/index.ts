@@ -1,3 +1,3 @@
-export { default as TaskServer } from './rest-api/task-server';
-export { default as TaskService } from './task-service';
+export { default as TaskCommentsServer } from './rest-api/task-comment-server';
+export { default as TaskCommentsService } from './task-comment-service';
 export * from './types';
