@@ -7,6 +7,7 @@ export interface TaskDB {
   description: string;
   title: string;
   sharedWith: Types.ObjectId[];
+  commentsCount?: number;
 }
 
 export const TaskDbSchema: Schema = new Schema<TaskDB>(

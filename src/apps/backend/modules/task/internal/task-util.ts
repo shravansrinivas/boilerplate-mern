@@ -9,7 +9,8 @@ export default class TaskUtil {
     task.account = taskDb.account.toString();
     task.description = taskDb.description;
     task.title = taskDb.title;
-    task.sharedWith = taskDb.sharedWith.map(id=>id.toString());
+    task.sharedWith = taskDb.sharedWith.map(id => id.toString());
+    task.commentsCount = taskDb.commentsCount || 0;
     return task;
   }
 }

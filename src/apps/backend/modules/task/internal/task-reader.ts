@@ -1,3 +1,4 @@
+import { Types } from 'mongoose';
 import {
   GetAllTaskParams,
   GetTaskParams,
@@ -23,23 +24,40 @@ export default class TaskReader {
     return TaskUtil.convertTaskDBToTask(taskDb);
   }
 
-  public static async getTasksForAccount(params: GetAllTaskParams): Promise<Task[]> {
+  public static async getTasksForAccount(
+    params: GetAllTaskParams,
+  ): Promise<Task[]> {
     const FIND_COND = [
-      { account: params.accountId, active: true },
-      { active: true, sharedWith: params.accountId },
+      { account: new Types.ObjectId(params.accountId), active: true },
+      { active: true, sharedWith: new Types.ObjectId(params.accountId) },
     ];
     const totalTasksCount = await TaskRepository.countDocuments(FIND_COND);
     const paginationParams: PaginationParams = {
-      page: (params.page) ? (params.page) : 1,
-      size: (params.size) ? (params.size) : totalTasksCount,
+      page: params.page ? params.page : 1,
+      size: params.size ? params.size : totalTasksCount,
     };
-    const startIndex = (paginationParams.page - 1) * (paginationParams.size);
+    const startIndex = (paginationParams.page - 1) * paginationParams.size;
 
-    const tasksDb = await TaskRepository
-      .find({$or: FIND_COND})
-      .limit(paginationParams.size)
-      .skip(startIndex);
-
-   return tasksDb.map((taskDb) => TaskUtil.convertTaskDBToTask(taskDb));
+    const tasksDb = await TaskRepository.aggregate([
+      { $match: { $or: FIND_COND } },
+      { $limit: paginationParams.size },
+      { $skip: startIndex },
+      {
+        $lookup: {
+          from: 'comments',
+          localField: '_id',
+          foreignField: 'task',
+          as: 'commentsCount',
+        },
+      },
+      {
+        $addFields: {
+          commentsCount: {
+            $size: '$commentsCount',
+          },
+        },
+      },
+    ]);
+    return tasksDb.map((taskDb) => TaskUtil.convertTaskDBToTask(taskDb));
   }
 }
