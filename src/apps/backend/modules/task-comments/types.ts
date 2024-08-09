@@ -8,6 +8,8 @@ export class TaskComment {
   active: boolean;
   message: string;
   task: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 export type GetCommentsForTaskParams = {

@@ -41,7 +41,6 @@ export class CommentsController {
         taskId: req.params.taskId,
       });
       const commentsJSON = comments.map(serializeCommentAsJSON);
-
       res.status(HttpStatusCodes.OK).send(commentsJSON);
     },
   );

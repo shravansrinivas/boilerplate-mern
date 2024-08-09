@@ -9,13 +9,11 @@ export class Task {
   description: string;
   title: string;
   sharedWith: string[];
-  commentsCount?: number;
 
   constructor(json: JsonObject) {
     this.id = json.id as string;
     this.description = json.description as string;
     this.title = json.title as string;
     this.sharedWith = json.sharedWith as string[];
-    this.commentsCount = json.commentsCount as number;  
   }
 }

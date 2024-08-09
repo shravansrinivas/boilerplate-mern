@@ -7,6 +7,8 @@ export interface TaskCommentDB {
   task: Types.ObjectId;
   active: boolean;
   message: string;
+  updatedAt: Date;
+  createdAt: Date;
 }
 
 export const TaskCommentDbSchema: Schema = new Schema<TaskCommentDB>(
@@ -24,13 +26,13 @@ export const TaskCommentDbSchema: Schema = new Schema<TaskCommentDB>(
     },
     createdBy: {
       type: Schema.Types.ObjectId,
-      ref: 'Account',
+      ref: 'accounts',
       index: true,
       required: true,
     },
     updatedBy: {
       type: Schema.Types.ObjectId,
-      ref: 'Account',
+      ref: 'accounts',
       index: true,
       required: true,
     },

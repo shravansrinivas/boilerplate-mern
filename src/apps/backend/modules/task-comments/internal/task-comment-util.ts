@@ -11,6 +11,8 @@ export default class TaskUtil {
     taskComment.active = taskDb.active;
     taskComment.createdBy = taskDb.createdBy.toString();
     taskComment.updatedBy = taskDb.updatedBy.toString();
+    taskComment.createdAt = taskDb.createdAt;
+    taskComment.updatedAt = taskDb.updatedAt;
     taskComment.task = taskDb.task.toString();
     taskComment.message = taskDb.message;
 

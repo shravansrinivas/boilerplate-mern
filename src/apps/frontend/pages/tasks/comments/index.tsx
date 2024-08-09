@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import TextArea from '../../../components/input/text-area';
 import {
   Button,
@@ -38,14 +38,18 @@ const CommentSection: React.FC<CommentSectionProps> = ({ taskId }) => {
     commentsForTask,
     getComments,
   } = useCommentContext();
-  useEffect(() => {
+
+  const fetchComments = () => {
     getComments(taskId).catch((error) => onError(error as AsyncError));
-  }, []);
+  };
+  // useEffect(() => {
+  //   getComments(taskId).catch((error) => onError(error as AsyncError));
+  // }, []);
 
   const handleCommentAddition = (taskId: string, message: string) => {
     addComment(taskId, message)
       .then((newComment) => {
-        setCommentsForTask([...commentsForTask, newComment]);
+        setCommentsForTask([newComment, ...commentsForTask]);
         onSuccess();
       })
       .catch((error) => {
@@ -54,6 +58,9 @@ const CommentSection: React.FC<CommentSectionProps> = ({ taskId }) => {
   };
 
   const toggleComments = () => {
+    if (!showComments) {
+      fetchComments();
+    }
     setShowComments(!showComments);
   };
 
@@ -88,15 +95,11 @@ const CommentSection: React.FC<CommentSectionProps> = ({ taskId }) => {
             </Button>
           </div>
           <div>
-            
-              <div>
-                <Button kind={ButtonKind.SECONDARY} onClick={toggleComments}>
-                  {showComments
-                    ? 'Hide Comments'
-                    : 'Show Comments'}
-                </Button>
-              </div>
-            
+            <div>
+              <Button kind={ButtonKind.SECONDARY} onClick={toggleComments}>
+                {showComments ? 'Hide Comments' : 'Show Comments'}
+              </Button>
+            </div>
           </div>
         </VerticalStackLayout>
       </HorizontalStackLayout>

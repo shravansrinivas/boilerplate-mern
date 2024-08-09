@@ -38,26 +38,10 @@ export default class TaskReader {
     };
     const startIndex = (paginationParams.page - 1) * paginationParams.size;
 
-    const tasksDb = await TaskRepository.aggregate([
-      { $match: { $or: FIND_COND } },
-      { $limit: paginationParams.size },
-      { $skip: startIndex },
-      {
-        $lookup: {
-          from: 'comments',
-          localField: '_id',
-          foreignField: 'task',
-          as: 'commentsCount',
-        },
-      },
-      {
-        $addFields: {
-          commentsCount: {
-            $size: '$commentsCount',
-          },
-        },
-      },
-    ]);
+    const tasksDb = await TaskRepository
+      .find({ $or: FIND_COND })
+      .limit(paginationParams.size)
+      .skip(startIndex);
     return tasksDb.map((taskDb) => TaskUtil.convertTaskDBToTask(taskDb));
   }
 }

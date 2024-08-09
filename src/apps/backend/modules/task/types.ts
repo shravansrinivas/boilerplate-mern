@@ -7,7 +7,6 @@ export class Task {
   description: string;
   title: string;
   sharedWith: string[];
-  commentsCount?: number;
 }
 
 export type GetAllTaskParams = {
