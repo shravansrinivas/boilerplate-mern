@@ -20,6 +20,9 @@ type CommentContextType = {
   getCommentsError: AsyncError;
   commentsForTask: Comment[];
   setCommentsForTask: React.Dispatch<React.SetStateAction<Comment[]>>;
+  deleteComment: (commentId: string) => Promise<void>;
+  deleteCommentError: AsyncError;
+  isDeleteCommentLoading: boolean;
 };
 
 const CommentContext = createContext<CommentContextType | null>(null);
@@ -33,6 +36,9 @@ const addCommentFn = async (
   taskId: string,
   message: string,
 ): Promise<ApiResponse<Comment>> => commentService.addComment(taskId, message);
+
+const deleteCommentFn = async (commentId: string): Promise<ApiResponse<void>> =>
+  commentService.deleteComment(commentId);
 
 export const CommentProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [commentsForTask, setCommentsForTask] = useState<Comment[]>([]);
@@ -59,6 +65,12 @@ export const CommentProvider: React.FC<PropsWithChildren> = ({ children }) => {
     error: getCommentsError,
   } = useAsync(getCommentsFn);
 
+  const {
+    asyncCallback: deleteComment,
+    error: deleteCommentError,
+    isLoading: isDeleteCommentLoading,
+  } = useAsync(deleteCommentFn);
+
   return (
     <CommentContext.Provider
       value={{
@@ -72,6 +84,9 @@ export const CommentProvider: React.FC<PropsWithChildren> = ({ children }) => {
         isGetCommentsLoading,
         setCommentsForTask,
         commentsForTask,
+        deleteComment,
+        deleteCommentError,
+        isDeleteCommentLoading,
       }}
     >
       {children}

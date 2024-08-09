@@ -15,6 +15,9 @@ export class TaskComment {
 export type GetCommentsForTaskParams = {
   taskId: string;
 };
+export type getCommentByIdParams = {
+  commentId: string;
+};
 
 export type CreateTaskCommentParams = {
   accountId: string;
@@ -30,7 +33,7 @@ export type UpdateCommentParams = {
 
 export type DeleteCommentParams = {
   commentId: string;
-}
+};
 
 export enum TaskCommentErrorCode {
   NOT_FOUND = 'TASK_COMMENT_ERR_01',

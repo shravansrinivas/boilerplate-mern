@@ -53,4 +53,21 @@ export default class CommentService extends APIService {
       );
     }
   };
+
+  deleteComment = async (commentId: string): Promise<ApiResponse<void>> => {
+    try {
+      const userAccessToken = getAccessTokenFromStorage();
+      await this.apiClient.delete(`/comments/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${userAccessToken.token}`,
+        },
+      });
+      return new ApiResponse(undefined, undefined);
+    } catch (e) {
+      return new ApiResponse(
+        undefined,
+        new ApiError(e.response.data as JsonObject),
+      );
+    }
+  };
 }

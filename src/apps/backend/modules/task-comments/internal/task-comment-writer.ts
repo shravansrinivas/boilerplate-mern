@@ -7,6 +7,7 @@ import {
 } from '../types';
 
 import TaskCommentRepository from './store/task-comment-repository';
+import TaskCommentReader from './task-comment-reader';
 import TaskCommentUtil from './task-comment-util';
 
 export default class TaskCommentWriter {
@@ -19,7 +20,10 @@ export default class TaskCommentWriter {
       task: params.task,
       message: params.message,
     });
-    return TaskCommentUtil.convertTaskCommentDBToTaskComment(createdComment);
+    const commentWithMetaInfo = await TaskCommentReader.getCommentById({
+      commentId: createdComment._id.toString(),
+    });
+    return commentWithMetaInfo;
   }
 
   public static async updateComment(

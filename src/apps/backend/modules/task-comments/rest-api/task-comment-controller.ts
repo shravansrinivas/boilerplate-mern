@@ -19,6 +19,7 @@ export class CommentsController {
         message: req.body.message,
         task: req.params.taskId,
       });
+
       const taskJSON = serializeCommentAsJSON(comment);
 
       res.status(HttpStatusCodes.CREATED).send(taskJSON);

@@ -30,7 +30,7 @@ const Tasks: React.FC = () => {
       .catch((error) => onError(error as AsyncError));
   };
 
-  const handleTaskCheckBoxToggle = (taskId: string) : void => {
+  const handleTaskCheckBoxToggle = (taskId: string) => {
     setSelectedTasks(
       selectedTasks.includes(taskId)
         ? selectedTasks.filter((id) => id !== taskId)
@@ -38,7 +38,7 @@ const Tasks: React.FC = () => {
     );
   };
 
-  const resetSelectedTasks = (): void => {
+  const resetSelectedTasks = () => {
     setSelectedTasks([]);
   }
   return (

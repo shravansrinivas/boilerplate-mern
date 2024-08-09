@@ -37,6 +37,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ taskId }) => {
     setCommentsForTask,
     commentsForTask,
     getComments,
+    deleteComment,
   } = useCommentContext();
 
   const fetchComments = () => {
@@ -57,6 +58,16 @@ const CommentSection: React.FC<CommentSectionProps> = ({ taskId }) => {
       });
   };
 
+  const handleDeleteComment = (commentId: string) => {
+    deleteComment(commentId)
+      .then(() => {
+        setCommentsForTask(
+          commentsForTask.filter((comment) => comment.id !== commentId),
+        );
+        toast.success('Comment deleted successfully!');
+      })
+      .catch((error) => onError(error as AsyncError));
+  };
   const toggleComments = () => {
     if (!showComments) {
       fetchComments();
@@ -95,15 +106,22 @@ const CommentSection: React.FC<CommentSectionProps> = ({ taskId }) => {
             </Button>
           </div>
           <div>
-            <div>
-              <Button kind={ButtonKind.SECONDARY} onClick={toggleComments}>
-                {showComments ? 'Hide Comments' : 'Show Comments'}
-              </Button>
-            </div>
+            <Button
+              size={ButtonSize.MINI}
+              kind={ButtonKind.SECONDARY}
+              onClick={toggleComments}
+            >
+              {showComments ? 'Hide Comments' : 'Show Comments'}
+            </Button>
           </div>
         </VerticalStackLayout>
       </HorizontalStackLayout>
-      {showComments ? <CommentsList comments={commentsForTask} /> : null}
+      {showComments ? (
+        <CommentsList
+          handleDeleteComment={handleDeleteComment}
+          comments={commentsForTask}
+        />
+      ) : null}
     </VerticalStackLayout>
   );
 };
